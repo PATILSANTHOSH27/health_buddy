@@ -1,0 +1,80 @@
+{
+  "headache": [
+    "Stay hydrated",
+    "Get enough sleep",
+    "Reduce screen time",
+    "Manage stress with relaxation techniques"
+  ],
+  "fever": [
+    "Maintain good hygiene",
+    "Avoid contact with sick people",
+    "Stay hydrated",
+    "Boost immunity with a healthy diet"
+  ],
+  "cough": [
+    "Avoid smoking",
+    "Stay away from allergens",
+    "Drink warm fluids",
+    "Wash hands frequently"
+  ],
+  "cold": [
+    "Wash hands regularly",
+    "Avoid close contact with infected individuals",
+    "Keep your immune system strong",
+    "Wear masks in crowded areas"
+  ],
+  "stomach pain": [
+    "Eat balanced meals",
+    "Avoid junk food",
+    "Practice proper food hygiene",
+    "Stay hydrated"
+  ],
+  "nausea": [
+    "Avoid oily and spicy foods",
+    "Eat smaller meals",
+    "Stay hydrated",
+    "Rest after eating"
+  ],
+  "fatigue": [
+    "Maintain a regular sleep schedule",
+    "Exercise regularly",
+    "Eat a balanced diet",
+    "Reduce stress"
+  ],
+  "sore throat": [
+    "Avoid cold drinks",
+    "Gargle with warm salt water",
+    "Stay hydrated",
+    "Avoid smoking and pollution"
+  ],
+  "diarrhea": [
+    "Drink clean, boiled water",
+    "Maintain food hygiene",
+    "Avoid street food",
+    "Wash hands before eating"
+  ],
+  "dizziness": [
+    "Stay hydrated",
+    "Avoid sudden movements",
+    "Get enough rest",
+    "Eat regular meals"
+  ],
+  "back pain": [
+    "Maintain good posture",
+    "Exercise regularly",
+    "Avoid lifting heavy weights incorrectly",
+    "Use ergonomic chairs"
+  ],
+  "chest pain": [
+    "Exercise regularly",
+    "Eat a heart-healthy diet",
+    "Avoid smoking",
+    "Manage stress"
+  ],
+  "shortness of breath": [
+    "Avoid smoking",
+    "Exercise for lung health",
+    "Stay away from pollution",
+    "Maintain a healthy weight"
+  ]
+}
