@@ -16,10 +16,12 @@ def load_json_from_github(url):
         response.raise_for_status()
         return response.json()
     except Exception as e:
-        return {"error": str(e)}
+        # Log error for debugging
+        print(f"Error fetching {url}: {e}")
+        return {}
 
 
-@app.route("/", methods=["POST"])
+@app.route("/webhook", methods=["POST"])
 def webhook():
     """Dialogflow webhook to handle intents."""
     req = request.get_json(silent=True, force=True)
@@ -35,7 +37,7 @@ def webhook():
 
     # Handle CheckPreventionIntent
     if intent_name == "CheckPreventionIntent":
-        disease = parameters.get("disease")
+        disease = parameters.get("disease") or parameters.get("symptoms")
         if disease and disease in preventions_data:
             response_text = f"Prevention tips for {disease}: {', '.join(preventions_data[disease])}"
         else:
@@ -43,7 +45,7 @@ def webhook():
 
     # Handle CheckSymptomsIntent
     elif intent_name == "CheckSymptomsIntent":
-        disease = parameters.get("disease")
+        disease = parameters.get("disease") or parameters.get("symptoms")
         if disease and disease in symptoms_data:
             response_text = f"Common symptoms of {disease}: {', '.join(symptoms_data[disease])}"
         else:
@@ -51,7 +53,7 @@ def webhook():
 
     # Handle CheckSynonymsIntent
     elif intent_name == "CheckSynonymsIntent":
-        disease = parameters.get("disease")
+        disease = parameters.get("disease") or parameters.get("symptoms")
         if disease and disease in diseases_data:
             response_text = f"Synonyms for {disease}: {', '.join(diseases_data[disease])}"
         else:
@@ -61,4 +63,5 @@ def webhook():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    # Use host=0.0.0.0 to make it accessible externally (for Render, Heroku, etc.)
+    app.run(host="0.0.0.0", port=5000, debug=True)
