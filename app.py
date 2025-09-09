@@ -4,7 +4,7 @@ import requests
 app = Flask(__name__)
 
 # Replace with your actual GitHub raw file URLs
-DISEASES_URL = 
+DISEASES_URL = "https://raw.githubusercontent.com/PATILSANTHOSH27/health_buddy/refs/heads/main/diseases.json"
 SYMPTOMS_URL = 
 PREVENTIONS_URL = 
 
