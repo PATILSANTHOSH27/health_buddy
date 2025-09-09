@@ -4,9 +4,9 @@ import requests
 app = Flask(__name__)
 
 # Replace with your actual GitHub raw file URLs
-DISEASES_URL = "https://raw.githubusercontent.com/<your-username>/<your-repo>/main/diseases.json"
-SYMPTOMS_URL = "https://raw.githubusercontent.com/<your-username>/<your-repo>/main/symptoms.json"
-PREVENTIONS_URL = "https://raw.githubusercontent.com/<your-username>/<your-repo>/main/disease_prevention.json"
+DISEASES_URL = 
+SYMPTOMS_URL = 
+PREVENTIONS_URL = 
 
 
 def load_json_from_github(url):
