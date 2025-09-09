@@ -1,0 +1,15 @@
+{
+  "headache": ["head pain", "migraine", "pain in head", "ache in head"],
+  "fever": ["temperature", "high temperature", "feverish", "hot body"],
+  "cough": ["dry cough", "wet cough", "throat cough"],
+  "cold": ["runny nose", "blocked nose", "sneezing", "flu"],
+  "stomach pain": ["abdominal pain", "tummy ache", "belly pain"],
+  "nausea": ["vomiting", "feel like vomiting", "sick feeling"],
+  "fatigue": ["tiredness", "exhaustion", "low energy"],
+  "sore throat": ["throat pain", "pain in throat", "itchy throat"],
+  "diarrhea": ["loose motion", "runny stool", "frequent stool"],
+  "dizziness": ["lightheaded", "vertigo", "spinning head"],
+  "back pain": ["lower back pain", "spinal pain", "ache in back"],
+  "chest pain": ["tight chest", "pain in chest", "pressure in chest"],
+  "shortness of breath": ["breathing difficulty", "difficulty breathing", "can’t breathe well"]
+}
