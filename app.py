@@ -3,30 +3,33 @@ import requests
 
 app = Flask(__name__)
 
-# Replace with your actual GitHub raw file URLs
+# GitHub raw JSON URLs
 DISEASES_URL = "https://raw.githubusercontent.com/PATILSANTHOSH27/health_buddy/main/diseases.json"
 SYMPTOMS_URL = "https://raw.githubusercontent.com/PATILSANTHOSH27/health_buddy/main/symptoms.json"
 PREVENTIONS_URL = "https://raw.githubusercontent.com/PATILSANTHOSH27/health_buddy/main/preventions.json"
 
 
 def load_json_from_github(url):
-    """Fetch JSON file from GitHub raw URL."""
+    """Fetch JSON from GitHub raw URL."""
     try:
         response = requests.get(url)
         response.raise_for_status()
         return response.json()
     except Exception as e:
-        # Log error for debugging
-        print(f"Error fetching {url}: {e}")
+        print(f"Error loading {url}: {e}")
         return {}
 
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    """Dialogflow webhook to handle intents."""
+    """Dialogflow webhook for all intents."""
     req = request.get_json(silent=True, force=True)
     intent_name = req.get("queryResult", {}).get("intent", {}).get("displayName", "")
     parameters = req.get("queryResult", {}).get("parameters", {})
+
+    # Get the disease parameter (consistent across all intents)
+    disease = parameters.get("disease") or parameters.get("symptoms") or parameters.get("preventions") or parameters.get("synonyms")
+    disease = disease.title() if disease else None  # Capitalize to match JSON keys
 
     # Load data from GitHub
     diseases_data = load_json_from_github(DISEASES_URL)
@@ -35,25 +38,20 @@ def webhook():
 
     response_text = "Sorry, I couldn’t find the information."
 
-    # Handle CheckPreventionIntent
-    if intent_name == "CheckPreventionIntent":
-        disease = parameters.get("disease") or parameters.get("symptoms")
-        if disease and disease in preventions_data:
-            response_text = f"Prevention tips for {disease}: {', '.join(preventions_data[disease])}"
-        else:
-            response_text = f"Sorry, I don’t have prevention info for {disease}."
-
-    # Handle CheckSymptomsIntent
-    elif intent_name == "CheckSymptomsIntent":
-        disease = parameters.get("disease") or parameters.get("symptoms")
+    # Handle intents
+    if intent_name == "CheckSymptomsIntent":
         if disease and disease in symptoms_data:
             response_text = f"Common symptoms of {disease}: {', '.join(symptoms_data[disease])}"
         else:
             response_text = f"Sorry, I don’t have symptom info for {disease}."
 
-    # Handle CheckSynonymsIntent
+    elif intent_name == "CheckPreventionIntent":
+        if disease and disease in preventions_data:
+            response_text = f"Prevention tips for {disease}: {', '.join(preventions_data[disease])}"
+        else:
+            response_text = f"Sorry, I don’t have prevention info for {disease}."
+
     elif intent_name == "CheckSynonymsIntent":
-        disease = parameters.get("disease") or parameters.get("symptoms")
         if disease and disease in diseases_data:
             response_text = f"Synonyms for {disease}: {', '.join(diseases_data[disease])}"
         else:
@@ -63,5 +61,4 @@ def webhook():
 
 
 if __name__ == "__main__":
-    # Use host=0.0.0.0 to make it accessible externally (for Render, Heroku, etc.)
     app.run(host="0.0.0.0", port=5000, debug=True)
