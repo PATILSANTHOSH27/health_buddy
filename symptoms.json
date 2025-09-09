@@ -1,0 +1,15 @@
+{
+  "headache": ["pain in head", "pressure in head", "sensitivity to light", "throbbing head"],
+  "fever": ["high temperature", "chills", "sweating", "body ache"],
+  "cough": ["dry cough", "wet cough", "irritated throat", "persistent coughing"],
+  "cold": ["runny nose", "blocked nose", "sneezing", "watery eyes"],
+  "stomach pain": ["abdominal cramps", "bloating", "sharp belly pain", "gastric discomfort"],
+  "nausea": ["vomiting", "loss of appetite", "dizziness", "stomach upset"],
+  "fatigue": ["tiredness", "low energy", "weakness", "exhaustion"],
+  "sore throat": ["throat pain", "difficulty swallowing", "scratchy throat", "swollen tonsils"],
+  "diarrhea": ["loose motion", "frequent stool", "watery stool", "abdominal cramps"],
+  "dizziness": ["lightheadedness", "spinning sensation", "loss of balance", "blurred vision"],
+  "back pain": ["lower back ache", "stiffness", "muscle spasm", "difficulty standing"],
+  "chest pain": ["tight chest", "pressure in chest", "burning sensation", "discomfort while breathing"],
+  "shortness of breath": ["difficulty breathing", "fast breathing", "chest tightness", "can’t breathe properly"]
+}
