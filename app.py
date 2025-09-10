@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
-import requests, random
+from twilio.twiml.messaging_response import MessagingResponse
+import requests, random, os
 
 app = Flask(__name__)
 
@@ -8,6 +9,9 @@ DISEASES_URL = "https://raw.githubusercontent.com/PATILSANTHOSH27/health_buddy/m
 SYMPTOMS_URL = "https://raw.githubusercontent.com/PATILSANTHOSH27/health_buddy/main/symptoms.json"
 PREVENTIONS_URL = "https://raw.githubusercontent.com/PATILSANTHOSH27/health_buddy/main/preventions.json"
 
+# Dialogflow Webhook URL (replace with your own deployed URL if needed)
+DIALOGFLOW_WEBHOOK_URL = "https://your-flask-app.onrender.com/webhook"
+
 
 def load_json_from_github(url):
     """Fetch JSON from GitHub raw URL and return dictionary with lowercase keys for case-insensitive matching."""
@@ -15,7 +19,6 @@ def load_json_from_github(url):
         response = requests.get(url)
         response.raise_for_status()
         data = response.json()
-        # Convert keys to lowercase for case-insensitive matching
         return {k.lower(): v for k, v in data.items()}
     except Exception as e:
         print(f"Error loading {url}: {e}")
@@ -29,7 +32,6 @@ def webhook():
     intent_name = req.get("queryResult", {}).get("intent", {}).get("displayName", "")
     parameters = req.get("queryResult", {}).get("parameters", {})
 
-    # ✅ Safely extract disease parameter (handles list or string)
     disease_param = (
         parameters.get("disease")
         or parameters.get("symptoms")
@@ -45,15 +47,14 @@ def webhook():
 
     disease_lower = disease.lower() if disease else None
 
-    # Load JSON data from GitHub
+    # Load JSON data
     diseases_data = load_json_from_github(DISEASES_URL)
     symptoms_data = load_json_from_github(SYMPTOMS_URL)
     preventions_data = load_json_from_github(PREVENTIONS_URL)
 
-    # Default response
     response_text = "Sorry, I couldn’t find the information."
 
-    # Handle intents with 5–10 varied responses
+    # Handle intents
     if intent_name == "CheckSymptomsIntent":
         if disease_lower and disease_lower in symptoms_data:
             symptoms = ", ".join(symptoms_data[disease_lower])
@@ -118,6 +119,38 @@ def webhook():
             response_text = "Please tell me the disease name to check synonyms."
 
     return jsonify({"fulfillmentText": response_text})
+
+
+@app.route("/sms", methods=["POST"])
+def sms_reply():
+    """Receive SMS via Twilio, forward to Dialogflow, and reply back."""
+    incoming_msg = request.form.get("Body")
+    sender = request.form.get("From")
+    print(f"Message from {sender}: {incoming_msg}")
+
+    # Build Dialogflow request body
+    df_request = {
+        "queryResult": {
+            "queryText": incoming_msg,
+            "intent": {"displayName": "CheckSymptomsIntent"},  # Default intent fallback
+            "parameters": {"disease": incoming_msg}
+        }
+    }
+
+    try:
+        # Send to Dialogflow webhook
+        response = requests.post(DIALOGFLOW_WEBHOOK_URL, json=df_request)
+        response.raise_for_status()
+        df_response = response.json()
+        reply_text = df_response.get("fulfillmentText", "Sorry, I couldn’t understand that.")
+    except Exception as e:
+        print(f"Error contacting Dialogflow webhook: {e}")
+        reply_text = "Error processing your request."
+
+    # Reply back to Twilio
+    resp = MessagingResponse()
+    resp.message(reply_text)
+    return str(resp)
 
 
 if __name__ == "__main__":
