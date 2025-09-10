@@ -1,80 +1,48 @@
 {
-  "headache": [
-    "Stay hydrated",
-    "Get enough sleep",
-    "Reduce screen time",
-    "Manage stress with relaxation techniques"
-  ],
-  "fever": [
-    "Maintain good hygiene",
-    "Avoid contact with sick people",
-    "Stay hydrated",
-    "Boost immunity with a healthy diet"
-  ],
-  "cough": [
-    "Avoid smoking",
-    "Stay away from allergens",
-    "Drink warm fluids",
-    "Wash hands frequently"
-  ],
-  "cold": [
-    "Wash hands regularly",
-    "Avoid close contact with infected individuals",
-    "Keep your immune system strong",
-    "Wear masks in crowded areas"
-  ],
-  "stomach pain": [
-    "Eat balanced meals",
-    "Avoid junk food",
-    "Practice proper food hygiene",
-    "Stay hydrated"
-  ],
-  "nausea": [
-    "Avoid oily and spicy foods",
-    "Eat smaller meals",
-    "Stay hydrated",
-    "Rest after eating"
-  ],
-  "fatigue": [
-    "Maintain a regular sleep schedule",
-    "Exercise regularly",
-    "Eat a balanced diet",
-    "Reduce stress"
-  ],
-  "sore throat": [
-    "Avoid cold drinks",
-    "Gargle with warm salt water",
-    "Stay hydrated",
-    "Avoid smoking and pollution"
-  ],
-  "diarrhea": [
-    "Drink clean, boiled water",
-    "Maintain food hygiene",
-    "Avoid street food",
-    "Wash hands before eating"
-  ],
-  "dizziness": [
-    "Stay hydrated",
-    "Avoid sudden movements",
-    "Get enough rest",
-    "Eat regular meals"
-  ],
-  "back pain": [
-    "Maintain good posture",
-    "Exercise regularly",
-    "Avoid lifting heavy weights incorrectly",
-    "Use ergonomic chairs"
-  ],
-  "chest pain": [
-    "Exercise regularly",
-    "Eat a heart-healthy diet",
-    "Avoid smoking",
-    "Manage stress"
-  ],
-  "shortness of breath": [
-    "Avoid smoking",
-    "Exercise for lung health",
-    "Stay away from pollution",
-    "Maintain a healthy weight"
-  ]
+  "covid": ["Wear a mask", "Wash hands", "Social distancing", "Get vaccinated", "Avoid touching face"],
+  "cold": ["Wash hands", "Avoid cold weather exposure", "Stay hydrated", "Rest well"],
+  "cough": ["Avoid smoking", "Cover mouth when coughing", "Drink warm fluids", "Stay hydrated"],
+  "fever": ["Drink clean water", "Maintain hygiene", "Avoid contaminated food", "Stay hydrated"],
+  "malaria": ["Use mosquito nets", "Apply mosquito repellents", "Remove stagnant water", "Wear long-sleeved clothing"],
+  "dengue": ["Prevent mosquito breeding", "Use repellents", "Sleep under nets", "Keep environment clean"],
+  "typhoid": ["Drink boiled water", "Wash fruits and vegetables", "Avoid street food", "Maintain sanitation"],
+  "cholera": ["Drink safe water", "Practice hygiene", "Wash hands", "Cook food thoroughly"],
+  "asthma": ["Avoid allergens", "Use inhalers", "Stay indoors during pollution", "Exercise carefully"],
+  "tuberculosis": ["Get BCG vaccine", "Cover mouth when coughing", "Ensure ventilation", "Avoid close contact"],
+  "influenza": ["Get flu vaccine", "Wash hands", "Avoid crowded places", "Cover mouth when sneezing"],
+  "pneumonia": ["Get vaccinated", "Avoid smoking", "Wash hands", "Strengthen immunity"],
+  "jaundice": ["Drink clean water", "Avoid contaminated food", "Get vaccinated", "Avoid alcohol"],
+  "hepatitis": ["Vaccinate", "Avoid sharing needles", "Practice safe sex", "Wash hands"],
+  "rabies": ["Vaccinate pets", "Avoid stray animals", "Seek medical help for bites", "Clean wounds"],
+  "polio": ["Get polio vaccine", "Maintain hygiene", "Avoid contaminated water", "Promote sanitation"],
+  "measles": ["Get MMR vaccine", "Avoid contact with infected", "Maintain nutrition"],
+  "mumps": ["Get MMR vaccine", "Avoid sharing food", "Wash hands"],
+  "chickenpox": ["Get varicella vaccine", "Avoid infected people", "Maintain hygiene"],
+  "whooping cough": ["Get vaccinated", "Cover mouth when coughing", "Avoid contact with infected"],
+  "scarlet fever": ["Practice hygiene", "Wash hands", "Avoid sharing utensils"],
+  "leprosy": ["Avoid untreated patients", "Maintain hygiene", "Seek early treatment"],
+  "ebola": ["Avoid contact with infected", "Use protective clothing", "Safe burial rituals"],
+  "zika": ["Use repellents", "Sleep under nets", "Eliminate stagnant water"],
+  "yellow fever": ["Get vaccine", "Prevent mosquito bites", "Avoid outbreak areas"],
+  "plague": ["Control rodents", "Use repellents", "Maintain hygiene"],
+  "lyme disease": ["Use tick repellents", "Wear protective clothing", "Check for ticks"],
+  "meningitis": ["Get vaccine", "Wash hands", "Avoid sharing drinks"],
+  "syphilis": ["Practice safe sex", "Regular checkups", "Avoid sharing needles"],
+  "gonorrhea": ["Safe sex practices", "Use condoms", "Regular screenings"],
+  "hiv": ["Practice safe sex", "Avoid sharing needles", "Get tested regularly", "Use ART"],
+  "aids": ["Prevent HIV", "Safe sex", "Take antiretroviral medicines"],
+  "cancer": ["Avoid smoking", "Healthy diet", "Exercise", "Regular screenings"],
+  "stroke": ["Control blood pressure", "Eat healthy diet", "Exercise", "Avoid smoking"],
+  "heart attack": ["Healthy diet", "Exercise", "Manage stress", "Avoid smoking"],
+  "hypertension": ["Reduce salt", "Exercise", "Avoid stress", "Maintain healthy weight"],
+  "diabetes": ["Healthy diet", "Exercise", "Monitor sugar", "Avoid excess sugar"],
+  "obesity": ["Balanced meals", "Exercise", "Avoid junk food", "Monitor weight"],
+  "arthritis": ["Healthy weight", "Exercise", "Protect joints"],
+  "osteoporosis": ["Calcium-rich foods", "Exercise", "Avoid smoking", "Avoid alcohol"],
+  "alzheimer": ["Exercise brain", "Healthy diet", "Control blood pressure and diabetes"],
+  "parkinson": ["Exercise", "Balanced diet", "Avoid toxins and head injuries"],
+  "kidney stones": ["Drink water", "Limit salt", "Reduce oxalate foods"],
+  "urinary tract infection": ["Drink water", "Good toilet hygiene", "Avoid holding urine"],
+  "anemia": ["Eat iron-rich foods", "Take supplements", "Treat underlying causes"],
+  "migraine": ["Avoid triggers", "Maintain sleep cycle", "Stay hydrated"]
 }
