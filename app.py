@@ -9,10 +9,10 @@ DISEASES_URL = "https://raw.githubusercontent.com/PATILSANTHOSH27/health_buddy/m
 SYMPTOMS_URL = "https://raw.githubusercontent.com/PATILSANTHOSH27/health_buddy/main/symptoms.json"
 PREVENTIONS_URL = "https://raw.githubusercontent.com/PATILSANTHOSH27/health_buddy/main/preventions.json"
 
-# Dialogflow Webhook URL (your deployed Render URL)
+# Your deployed Dialogflow webhook URL
 DIALOGFLOW_WEBHOOK_URL = "https://health-buddy-4425.onrender.com/webhook"
 
-
+# ----------------- Utility Functions -----------------
 def load_json_from_github(url):
     """Fetch JSON from GitHub raw URL and return lowercase keys."""
     try:
@@ -24,7 +24,7 @@ def load_json_from_github(url):
         print(f"Error loading {url}: {e}")
         return {}
 
-
+# ----------------- Dialogflow Webhook -----------------
 @app.route("/webhook", methods=["POST"])
 def webhook():
     """Dialogflow webhook for all intents."""
@@ -58,15 +58,25 @@ def webhook():
 
     return jsonify({"fulfillmentText": response_text})
 
-
+# ----------------- Twilio SMS Route -----------------
 @app.route("/sms", methods=["POST"])
 def sms_reply():
-    """Receive SMS via Twilio, detect intent, forward to Dialogflow, reply via Twilio."""
+    """Receive SMS via Twilio, detect disease and intent, forward to Dialogflow, reply."""
     incoming_msg = request.form.get("Body", "").lower()
     sender = request.form.get("From")
     print(f"Message from {sender}: {incoming_msg}")
 
-    # Keyword-based intent detection
+    # Load diseases from GitHub
+    diseases_data = load_json_from_github(DISEASES_URL)
+
+    # 1️⃣ Detect disease in message
+    detected_disease = None
+    for disease in diseases_data.keys():
+        if disease in incoming_msg:
+            detected_disease = disease
+            break
+
+    # 2️⃣ Detect intent based on keywords
     if any(word in incoming_msg for word in ["symptom", "feel", "signs"]):
         intent = "CheckSymptomsIntent"
     elif any(word in incoming_msg for word in ["prevent", "avoid", "protection"]):
@@ -74,16 +84,18 @@ def sms_reply():
     elif any(word in incoming_msg for word in ["also called", "synonym", "other name"]):
         intent = "CheckSynonymsIntent"
     else:
-        intent = "CheckSymptomsIntent"  # default
+        intent = "CheckSymptomsIntent"  # default fallback
 
+    # 3️⃣ Build Dialogflow request
     df_request = {
         "queryResult": {
             "queryText": incoming_msg,
             "intent": {"displayName": intent},
-            "parameters": {"disease": incoming_msg}
+            "parameters": {"disease": detected_disease or ""}
         }
     }
 
+    # 4️⃣ Send to Dialogflow webhook
     try:
         response = requests.post(DIALOGFLOW_WEBHOOK_URL, json=df_request, timeout=10)
         response.raise_for_status()
@@ -93,10 +105,13 @@ def sms_reply():
         print(f"Error contacting Dialogflow webhook: {e}")
         reply_text = "Sorry, could not process your request."
 
+    # 5️⃣ Reply via Twilio
     resp = MessagingResponse()
+    if detected_disease is None:
+        reply_text = "Please specify the disease name so I can help you."
     resp.message(reply_text)
     return str(resp)
 
-
+# ----------------- Run Flask App -----------------
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=False)
