@@ -10,7 +10,7 @@ SYMPTOMS_URL = "https://raw.githubusercontent.com/PATILSANTHOSH27/health_buddy/m
 PREVENTIONS_URL = "https://raw.githubusercontent.com/PATILSANTHOSH27/health_buddy/main/preventions.json"
 
 # Dialogflow Webhook URL (replace with your own deployed URL if needed)
-DIALOGFLOW_WEBHOOK_URL = "https://your-flask-app.onrender.com/webhook"
+DIALOGFLOW_WEBHOOK_URL = "https://health-buddy-4425.onrender.com/webhook"
 
 
 def load_json_from_github(url):
