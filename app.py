@@ -29,8 +29,20 @@ def webhook():
     intent_name = req.get("queryResult", {}).get("intent", {}).get("displayName", "")
     parameters = req.get("queryResult", {}).get("parameters", {})
 
-    # Get the disease parameter and normalize to lowercase
-    disease = parameters.get("disease") or parameters.get("symptoms") or parameters.get("preventions") or parameters.get("synonyms")
+    # ✅ Safely extract disease parameter (handles list or string)
+    disease_param = (
+        parameters.get("disease")
+        or parameters.get("symptoms")
+        or parameters.get("preventions")
+        or parameters.get("synonyms")
+    )
+    if isinstance(disease_param, list) and len(disease_param) > 0:
+        disease = disease_param[0]
+    elif isinstance(disease_param, str):
+        disease = disease_param
+    else:
+        disease = None
+
     disease_lower = disease.lower() if disease else None
 
     # Load JSON data from GitHub
