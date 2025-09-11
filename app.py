@@ -1,10 +1,11 @@
 from flask import Flask, request, jsonify
 from twilio.twiml.messaging_response import MessagingResponse
-import requests, random
+import requests
+import os
 
 app = Flask(__name__)
 
-# GitHub raw JSON URLs
+# ----------------- GitHub JSON URLs -----------------
 DISEASES_URL = "https://raw.githubusercontent.com/PATILSANTHOSH27/health_buddy/main/diseases.json"
 SYMPTOMS_URL = "https://raw.githubusercontent.com/PATILSANTHOSH27/health_buddy/main/symptoms.json"
 PREVENTIONS_URL = "https://raw.githubusercontent.com/PATILSANTHOSH27/health_buddy/main/preventions.json"
@@ -26,7 +27,7 @@ def load_json_from_github(url):
 
 # ----------------- Dialogflow Webhook -----------------
 @app.route("/webhook", methods=["POST"])
-def webhook():
+def dialogflow_webhook():
     """Dialogflow webhook for all intents."""
     req = request.get_json(silent=True, force=True)
     intent_name = req.get("queryResult", {}).get("intent", {}).get("displayName", "")
@@ -58,10 +59,10 @@ def webhook():
 
     return jsonify({"fulfillmentText": response_text})
 
-# ----------------- Twilio SMS Route -----------------
+# ----------------- Twilio WhatsApp / SMS Webhook -----------------
 @app.route("/sms", methods=["POST"])
 def sms_reply():
-    """Receive SMS via Twilio, detect disease and intent, forward to Dialogflow, reply."""
+    """Receive SMS/WhatsApp via Twilio, forward to Dialogflow, reply."""
     incoming_msg = request.form.get("Body", "").lower()
     sender = request.form.get("From")
     print(f"Message from {sender}: {incoming_msg}")
